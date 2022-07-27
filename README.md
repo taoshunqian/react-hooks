@@ -93,3 +93,61 @@ tsconfig.json
     // button必须是静态type
     'react/button-has-type': 0,
 ```
+
+
+##### useState
+
+```
+  const [n, setN] = React.useState(0)
+```
+
+  1. 无局部更新能力
+  2. 创建一个动态的属性
+
+##### setState
+
+  1. 接受函数，用于更新属性
+
+##### useReducer
+
+  1. 创建初始值initialState
+  2. 创建所有操作reducer(state, action);
+  3. 传给userReducer，得到读和写API
+  4. 调用写({type: '操作类型'})
+
+  总的来说，useReducer 是 useState 的复杂版
+
+  如何代替 Redux
+
+  1. 将数据集中在一个 store 对象
+  2. 将所有操作集中在 reducer
+  3. 创建一个 Context
+  4. 创建对数据的读取 API
+  5. 将第四步的内容放到第三步的 Context
+  6. 用 Context.Provider 将 Context 提供给所有组件
+  7. 各个组件用 useContext 获取读写API
+
+##### useContext
+
+  1. 使用 C = createContext(initial) 创建上下文
+  2. 使用 <C.Provider> 圈定作用域
+  3. 在作用域内使用 useContext(C)来使用上下文
+
+
+##### useEffect , useLayoutEffect
+
+  1. useEffect 在浏览器渲染完成后执行
+  2. useLayoutEffect 在浏览器渲染前执行, 总比 useEffect 先执行
+
+##### useMemo
+
+  1. 如果 props 不变，就没有必要再次执行一个函数组件最终代码
+
+##### useCallback
+
+  1. useCallback(x => console.log(x), [m]) 等价于 useMemo( () => x => console.log(x), [m])
+
+##### forwardRef
+
+  1. 可以用来引用 DOM 对象， 也可以用来引用普通对象
+  2. props 无法传递 ref 属性
