@@ -1,29 +1,25 @@
-
-
-npx create-react-app my-app --template typescript
-
-npx eslint --init
-
-npm install react-app-rewired customize-cra --save-dev
-
-create config-overrides.js
-
-npm install node-sass
-
-npm install sass-resources-loader
-
-tsconfig.json
-
-```
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    'plugin:react/recommended',
+    'airbnb',
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-```
-
-.eslintrc.js
-
-```
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: [
+    'react',
+    '@typescript-eslint',
+  ],
+  rules: {
     'react/jsx-filename-extension': [
       2,
       { extensions: ['ts', 'tsx'] },
@@ -80,4 +76,5 @@ tsconfig.json
 
     // button必须是静态type
     'react/button-has-type': 0,
-```
+  },
+};
