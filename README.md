@@ -95,7 +95,7 @@ tsconfig.json
 ```
 
 
-##### useState
+### useState
 
 ```
   const [n, setN] = React.useState(0)
@@ -104,11 +104,11 @@ tsconfig.json
   1. 无局部更新能力
   2. 创建一个动态的属性
 
-##### setState
+### setState
 
   1. 接受函数，用于更新属性
 
-##### useReducer
+### useReducer
 
   1. 创建初始值initialState
   2. 创建所有操作reducer(state, action);
@@ -127,27 +127,27 @@ tsconfig.json
   6. 用 Context.Provider 将 Context 提供给所有组件
   7. 各个组件用 useContext 获取读写API
 
-##### useContext
+### useContext
 
   1. 使用 C = createContext(initial) 创建上下文
   2. 使用 <C.Provider> 圈定作用域
   3. 在作用域内使用 useContext(C)来使用上下文
 
 
-##### useEffect , useLayoutEffect
+### useEffect , useLayoutEffect
 
   1. useEffect 在浏览器渲染完成后执行
   2. useLayoutEffect 在浏览器渲染前执行, 总比 useEffect 先执行
 
-##### useMemo
+### useMemo
 
   1. 如果 props 不变，就没有必要再次执行一个函数组件最终代码
 
-##### useCallback
+### useCallback
 
   1. useCallback(x => console.log(x), [m]) 等价于 useMemo( () => x => console.log(x), [m])
 
-##### forwardRef
+### forwardRef
 
   1. 可以用来引用 DOM 对象， 也可以用来引用普通对象
   2. props 无法传递 ref 属性
