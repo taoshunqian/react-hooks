@@ -1,16 +1,28 @@
 
 
+```
 npx create-react-app my-app --template typescript
+```
 
+```
 npx eslint --init
+```
 
+```
 npm install react-app-rewired customize-cra --save-dev
+```
 
+```
 create config-overrides.js
+```
 
+```
 npm install node-sass
+```
 
+```
 npm install sass-resources-loader
+```
 
 tsconfig.json
 
