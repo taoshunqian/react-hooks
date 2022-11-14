@@ -3,6 +3,7 @@ import {
 } from '@ant-design/icons';
 import Home from '../view/Home';
 import About from '../view/About';
+import HomeC from '../view/HomeC';
 
 const RouterHSAE:RouterFace[] = [
   {
@@ -16,8 +17,24 @@ const RouterHSAE:RouterFace[] = [
     path: 'about',
     title: 'about',
     exact: true,
-    component: About,
     icon: RedditOutlined,
+    childern: [
+      {
+        path: 'HomeC',
+        title: 'HomeC',
+        exact: true,
+        icon: RedditOutlined,
+        childern: [
+          {
+            path: 'HomeA',
+            title: 'HomeA',
+            exact: true,
+            component: HomeC,
+            icon: RedditOutlined,
+          },
+        ]
+      },
+    ]
   },
 ];
 

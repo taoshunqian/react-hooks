@@ -22,16 +22,13 @@ function Home():any {
     dispatch({ type: 'add', num: 2 });
     setM(m + 2);
   };
-  const onClickChild = () => {
-    console.log('hello');
-  };
   const onClickChild2 = useMemo(() => () => {
     console.log(m);
   }, [m]);
 
   return (
     <div>
-      <nav>home</nav>
+      <nav>homeC</nav>
       <Button type="primary">{ `n: ${n}`}</Button>
       <Button type="primary" onClick={onClick}>home</Button>
       <Card>

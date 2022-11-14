@@ -43,31 +43,37 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
         selectedKeys={[props.SelectKey]}
       >
         {
-                    RouterHSAE.map((router) => (
-                      router?.childern
-                        ? (
-                          <SubMenu key={router.path} title={router.title} icon={router.icon ? <router.icon></router.icon> : <AppstoreOutlined></AppstoreOutlined>}>
-                            {
-                                router.childern.map((item) => {
-                                  const { path } = router;
-                                  if (!item.path.includes('/')) {
-                                    item.path = `${path}/${item.path}`;
-                                  }
-                                  return (
-                                    MenuLayerChild({ router: item })
-                                  );
-                                })
-
-                            }
-                          </SubMenu>
-                        )
-                        : MenuLayerChild({ router })
-                    ))
-                }
+          RouterHSAE.map((router) => (
+            router?.childern
+              ? MenuLayChild({ router })
+              : MenuLayerChild({ router })
+          ))
+        }
       </Menu>
     </div>
   );
 });
+
+function MenuLayChild(props: Props | any): any {
+  const { router } = props;
+  return (
+    router?.childern ? (
+      <SubMenu key={router.path} title={router.title} icon={router.icon ? <router.icon></router.icon> : <AppstoreOutlined></AppstoreOutlined>}>
+        {
+          router.childern.map((item:any) => {
+            const { path } = router;
+            if (!item.path.includes('/')) {
+              item.path = `${path}/${item.path}`;
+            }
+            return (
+              MenuLayChild({ router: item })
+            );
+          })
+        }
+      </SubMenu>
+    ) : MenuLayerChild({ router })
+  );
+}
 
 function MenuLayerChild(props: Props | any) {
   const { router } = props;
@@ -81,6 +87,6 @@ function MenuLayerChild(props: Props | any) {
 export default MenuLayer;
 
 interface Props {
-    router: any,
-    path?: string
+  router: any,
+  path?: string
 }
