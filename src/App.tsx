@@ -1,5 +1,5 @@
 import React, {
-  useRef, useState, useEffect, useReducer,
+  useRef, useState, useEffect, useReducer
 } from 'react';
 import { HashRouter as Routers } from 'react-router-dom';
 import 'antd/dist/antd.min.css';
@@ -21,7 +21,7 @@ const store = {
   movies: null,
 };
 
-function reducer(state:any, action:any) {
+function reducer(state: any, action: any) {
   switch (action.type) {
     case 'setUser':
       return { ...state, user: action.user };
@@ -84,9 +84,7 @@ function App() {
                     </ThemeContext.Provider>
                   </Col>
                   <Col xs={24} sm={24} md={17} lg={19} xl={20} style={{ marginTop: '2rem' }}>
-
                     <Router />
-
                   </Col>
                 </Row>
               </Content>

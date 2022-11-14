@@ -1,7 +1,8 @@
+/* eslint-disable for-direction */
 /* eslint-disable no-undef */
 /* eslint-disable consistent-return */
 /* eslint-disable max-len */
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { AppstoreOutlined } from '@ant-design/icons';
@@ -12,6 +13,7 @@ const { SubMenu } = Menu;
 
 const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknown>): JSX.Element => {
   const navigate = useNavigate();
+  const [openKey, useOpenKey] = useState(['']);
 
   useImperativeHandle(ref, () => ({
     refresFunc,
@@ -25,10 +27,29 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
       navigate('/home', { replace: true });
       return false;
     }
-    props.getChildData(herf.split('/')[1]);
+    props.getChildData(herf.substring(1));
     navigate(herf, { replace: true });
+    const arrKey = herf.split('/');
+    if (arrKey.length > 2) {
+      const open: any[] = openKeyFn(herf);
+      useOpenKey(open);
+    }
   };
-
+  // 设置 展开的 SubMenu 菜单项
+  const openKeyFn = (url: String) => {
+    const arrKey = url.split('/');
+    arrKey.shift();
+    const activeKey: String[] = [];
+    let index = arrKey.length - 1;
+    arrKey.forEach(() => {
+      const its = arrKey.slice(0, index).join('/');
+      index--;
+      activeKey.push(its);
+    });
+    activeKey.pop();
+    return activeKey;
+  };
+  // 点击获取的菜单项key
   const handleClick = (e: { key: string; }): void => {
     props.getChildData(e.key);
     navigate(e.key, { replace: true });
@@ -39,8 +60,12 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
       <Menu
         onClick={handleClick}
         mode={props.mode}
-        defaultSelectedKeys={[props.SelectedKey]}
+        key={Math.random()}
+        defaultSelectedKeys={[props.SelectKey]}
+        // openKeys={openKey}
+        defaultOpenKeys={openKey}
         selectedKeys={[props.SelectKey]}
+        subMenuOpenDelay={2000}
       >
         {
           RouterHSAE.map((router) => (
@@ -58,9 +83,10 @@ function MenuLayChild(props: Props | any): any {
   const { router } = props;
   return (
     router?.childern ? (
-      <SubMenu key={router.path} title={router.title} icon={router.icon ? <router.icon></router.icon> : <AppstoreOutlined></AppstoreOutlined>}>
+      // eslint-disable-next-line no-unsafe-optional-chaining, react/jsx-first-prop-new-line, react/jsx-max-props-per-line
+      <SubMenu key={router.path} title={router.title} icon={router.icon ? <router.icon></router.icon> : <AppstoreOutlined></AppstoreOutlined>} style={{ display: router?.show === undefined || router?.show === true ? 'black' : 'none' }}>
         {
-          router.childern.map((item:any) => {
+          router.childern.map((item: any) => {
             const { path } = router;
             if (!item.path.includes('/')) {
               item.path = `${path}/${item.path}`;
@@ -78,7 +104,7 @@ function MenuLayChild(props: Props | any): any {
 function MenuLayerChild(props: Props | any) {
   const { router } = props;
   return (
-    <Menu.Item key={router.component ? router.path : Math.random()} icon={router.icon ? <router.icon></router.icon> : <AppstoreOutlined></AppstoreOutlined>}>
+    <Menu.Item key={router.component ? router.path : Math.random()} icon={router.icon ? <router.icon></router.icon> : <AppstoreOutlined></AppstoreOutlined>} style={{ display: router?.show === undefined || router?.show === true ? 'black' : 'none' }}>
       <NavLink to={router.component ? router.path : ''} key={router.component ? router.path : Math.random()}>{router.title}</NavLink>
     </Menu.Item>
   );
