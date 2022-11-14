@@ -8,6 +8,10 @@ const About = lazy(() => import('../view/About'));
 const HomeC = lazy(() => import('../view/HomeC'));
 const MarkDown = lazy(() => import('../view/markdown/md'));
 
+const Login = lazy(() => import('../view/login/login'));
+
+const CapableTable = lazy(() => import('../view/tables/CapableTable'));
+
 const Error404 = lazy(() => import('../view/error/404'));
 const Error500 = lazy(() => import('../view/error/500'));
 const Error403 = lazy(() => import('../view/error/403'));
@@ -116,6 +120,24 @@ const multistageView:RouterFace[] = [
   },
 ];
 
+const tableView:RouterFace[] = [
+  {
+    path: 'table',
+    title: '表格',
+    exact: true,
+    icon: RedditOutlined,
+    childern: [
+      {
+        path: 'home',
+        title: '行内 修改',
+        exact: true,
+        component: CapableTable,
+        icon: RedditOutlined,
+      },
+    ],
+  },
+];
+
 const RouterHSAE: RouterFace[] = [
   {
     path: 'home',
@@ -132,6 +154,16 @@ const RouterHSAE: RouterFace[] = [
   //   component: MarkDown,
   // },
   ...multistageView,
+  ...tableView,
+  {
+    path: 'login',
+    title: '登录',
+    exact: true,
+    icon: RedditOutlined,
+    show: false,
+    component: Login,
+  },
+  ...ErrorView,
   {
     path: 'about',
     title: '关于',
@@ -139,7 +171,6 @@ const RouterHSAE: RouterFace[] = [
     icon: RedditOutlined,
     component: About,
   },
-  ...ErrorView,
 ];
 
 interface RouterFace {

@@ -52,7 +52,13 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
   // 点击获取的菜单项key
   const handleClick = (e: { key: string; }): void => {
     props.getChildData(e.key);
-    navigate(e.key, { replace: true });
+    const rou:String = e.key;
+    if (rou.indexOf('login') !== -1) {
+      // window.open(`${window.location.origin}/#/${e.key}`, '_self');
+      window.location.replace(`${window.location.origin}/#/${e.key}`);
+    } else {
+      navigate(e.key, { replace: true });
+    }
   };
 
   return (
@@ -62,7 +68,6 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
         mode={props.mode}
         key={Math.random()}
         defaultSelectedKeys={[props.SelectKey]}
-        // openKeys={openKey}
         defaultOpenKeys={openKey}
         selectedKeys={[props.SelectKey]}
         subMenuOpenDelay={2000}
