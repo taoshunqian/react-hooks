@@ -74,35 +74,42 @@ function App() {
           {/* 左侧导航栏 */}
           <Content className="site-layout">
             <Routers>
+
+              <Row>
+                <Col xs={24} sm={24} md={0} lg={0} xl={0}>
+                  <Content style={{
+                    width: '100%', height: '0rem',
+                  }}
+                  >
+                    <ThemeContext.Provider value={themes.MenuLayer}>
+                      <MenuLayer mode="horizontal" SelectKey={SelectedKeys} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
+                    </ThemeContext.Provider>
+                  </Content>
+                </Col>
+              </Row>
               {/* 顶部导航栏 */}
               {
-                !isLogin ? (
-                  <Row>
-                    <Col xs={24} sm={24} md={0} lg={0} xl={0}>
-                      <Content style={{
-                        width: '100%', height: '1rem',
-                      }}
-                      >
-                        <ThemeContext.Provider value={themes.MenuLayer}>
-                          <MenuLayer mode="horizontal" SelectKey={SelectedKeys} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
-                        </ThemeContext.Provider>
-                      </Content>
-                    </Col>
-                  </Row>
-                ) : <div></div>
-              }
-              <Content>
-                <Row>
-                  <Col xs={0} sm={0} md={7} lg={5} xl={4}>
-                    <ThemeContext.Provider value={themes.MenuLayer}>
-                      <MenuLayer mode="inline" SelectKey={SelectedKeys} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
-                    </ThemeContext.Provider>
-                  </Col>
-                  <Col xs={24} sm={24} md={17} lg={19} xl={20} style={{ marginTop: '0rem' }}>
+                isLogin ?
+                  <article>
                     <Router />
-                  </Col>
-                </Row>
-              </Content>
+                  </article>
+                  : <article>
+                    <Content>
+                      <Row>
+                        <Col xs={0} sm={0} md={7} lg={5} xl={4}>
+                          <ThemeContext.Provider value={themes.MenuLayer}>
+                            <MenuLayer mode="inline" SelectKey={SelectedKeys} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
+                          </ThemeContext.Provider>
+                        </Col>
+                        <Col xs={24} sm={24} md={17} lg={19} xl={20} style={{ marginTop: '0rem' }}>
+                          <Router />
+                        </Col>
+                      </Row>
+                    </Content>
+                  </article>
+              }
+
+
             </Routers>
           </Content>
 

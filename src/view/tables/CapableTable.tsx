@@ -222,8 +222,6 @@ const CapableTable: React.FC = () => {
                     <Button onClick={handleAdd} type="primary">
                         添加
                     </Button>
-                    <Button onClick={handleAdd} type="primary" style={{ marginLeft: 15 }}>
-                    </Button>
                 </div>
                 <Divider />
                 <Table
