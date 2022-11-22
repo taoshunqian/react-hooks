@@ -1,153 +1,46 @@
+# Getting Started with Create React App
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-```
-npx create-react-app my-app --template typescript
-```
+## Available Scripts
 
-```
-npx eslint --init
-```
+In the project directory, you can run:
 
-```
-npm install react-app-rewired customize-cra --save-dev
-```
+### `npm start`
 
-```
-create config-overrides.js
-```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-```
-npm install node-sass
-```
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-```
-npm install sass-resources-loader
-```
+### `npm test`
 
-tsconfig.json
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-```
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-```
+### `npm run build`
 
-.eslintrc.js
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-```
-    'react/jsx-filename-extension': [
-      2,
-      { extensions: ['ts', 'tsx'] },
-    ],
-    'import/no-unresolved': 0,
-    'import/extensions': 0,
-    'linebreak-style': ['off', 'windows'],
-    // 最后一个对象属性要有逗号
-    'comma-dangle': 1,
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-    // 定义但从未使用的变量
-    'no-unused-vars': 1,
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-    // 赋值但从未使用
-    'react/jsx-no-bind': 1,
+### `npm run eject`
 
-    // 空标签
-    'react/self-closing-comp': 0,
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-    // 具有单击处理程序的可见非交互元素必须至少有一个键盘侦听器
-    'jsx-a11y/click-events-have-key-events': 0,
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-    // 具有“按钮”交互作用的元素必须是可聚焦的
-    'jsx-a11y/interactive-supports-focus': 0,
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-    // 带有事件处理程序的静态HTML元素需要一个角色
-    'jsx-a11y/no-static-element-interactions': 0,
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-    // return ;
-    'semi-spacing': 0,
+## Learn More
 
-    // <>只包含不能只包含一个标签
-    'react/jsx-no-useless-fragment': 0,
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-    // 值对于布尔属性必须省略
-    'react/jsx-boolean-value': 0,
-
-    // 必须默认导出
-    'import/prefer-default-export': 0,
-
-    // 默认变量放到最后一个
-    'default-param-last': 0,
-
-    // 对参数进行赋值
-    'no-param-reassign': 0,
-
-    // 使用未声明的函数
-    'no-use-before-define': 0,
-
-    'no-new': 0,
-
-    // 不能使用自增
-    'no-plusplus': 0,
-
-    // button必须是静态type
-    'react/button-has-type': 0,
-```
-
-
-### useState
-
-```
-  const [n, setN] = React.useState(0)
-```
-
-  1. 无局部更新能力
-  2. 创建一个动态的属性
-
-### setState
-
-  1. 接受函数，用于更新属性
-
-### useReducer
-
-  1. 创建初始值initialState
-  2. 创建所有操作reducer(state, action);
-  3. 传给userReducer，得到读和写API
-  4. 调用写({type: '操作类型'})
-
-  总的来说，useReducer 是 useState 的复杂版
-
-  如何代替 Redux
-
-  1. 将数据集中在一个 store 对象
-  2. 将所有操作集中在 reducer
-  3. 创建一个 Context
-  4. 创建对数据的读取 API
-  5. 将第四步的内容放到第三步的 Context
-  6. 用 Context.Provider 将 Context 提供给所有组件
-  7. 各个组件用 useContext 获取读写API
-
-### useContext
-
-  1. 使用 C = createContext(initial) 创建上下文
-  2. 使用 <C.Provider> 圈定作用域
-  3. 在作用域内使用 useContext(C)来使用上下文
-
-
-### useEffect , useLayoutEffect
-
-  1. useEffect 在浏览器渲染完成后执行
-  2. useLayoutEffect 在浏览器渲染前执行, 总比 useEffect 先执行
-
-### useMemo
-
-  1. 如果 props 不变，就没有必要再次执行一个函数组件最终代码
-
-### useCallback
-
-  1. useCallback(x => console.log(x), [m]) 等价于 useMemo( () => x => console.log(x), [m])
-
-### forwardRef
-
-  1. 可以用来引用 DOM 对象， 也可以用来引用普通对象
-  2. props 无法传递 ref 属性
+To learn React, check out the [React documentation](https://reactjs.org/).

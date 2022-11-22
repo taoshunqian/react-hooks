@@ -16,8 +16,13 @@ const Error404 = lazy(() => import('../view/error/404'));
 const Error500 = lazy(() => import('../view/error/500'));
 const Error403 = lazy(() => import('../view/error/403'));
 
+const Language = lazy(() => import('../view/basic/Language'));
+const DevicesInfo = lazy(() => import('../view/basic/DevicesInfo'));
+const PreviewOverlay = lazy(() => import('../view/basic/PreviewOverlay'));
+const SoundPreview = lazy(() => import('../view/basic/SoundPreview'));
+
 // 错误处理
-const ErrorView:RouterFace[] = [
+const ErrorView: RouterFace[] = [
   {
     path: 'error',
     title: '错误处理',
@@ -50,7 +55,7 @@ const ErrorView:RouterFace[] = [
 ];
 
 // 多级路由
-const multistageView:RouterFace[] = [
+const multistageView: RouterFace[] = [
   {
     path: 'HomeC',
     title: '多级导航',
@@ -120,7 +125,53 @@ const multistageView:RouterFace[] = [
   },
 ];
 
-const tableView:RouterFace[] = [
+// 基本设置
+const basicView: RouterFace[] = [
+  {
+    path: 'basic',
+    title: '基本设置',
+    exact: true,
+    icon: RedditOutlined,
+    childern: [{
+      path: 'Language',
+      title: '语言设置',
+      exact: true,
+      component: Language,
+      icon: RedditOutlined,
+    },
+    {
+      path: 'DevicesInfo',
+      title: '车辆信息',
+      exact: true,
+      component: DevicesInfo,
+      icon: RedditOutlined,
+    },
+    {
+      path: 'videoSettings',
+      title: '视频输出设置',
+      exact: true,
+      icon: RedditOutlined,
+      childern: [
+        {
+          path: 'PreviewOverlay',
+          title: '预览叠加',
+          exact: true,
+          component: PreviewOverlay,
+          icon: RedditOutlined,
+        },
+        {
+          path: 'SoundPreview',
+          title: '声音预览',
+          exact: true,
+          component: SoundPreview,
+          icon: RedditOutlined,
+        },
+      ]
+    },]
+  }
+];
+
+const tableView: RouterFace[] = [
   {
     path: 'table',
     title: '表格',
@@ -141,7 +192,7 @@ const tableView:RouterFace[] = [
 const RouterHSAE: RouterFace[] = [
   {
     path: 'home',
-    title: '首页',
+    title: '文本下发',
     exact: true,
     component: Home,
     icon: RedditOutlined,
@@ -153,6 +204,7 @@ const RouterHSAE: RouterFace[] = [
   //   icon: RedditOutlined,
   //   component: MarkDown,
   // },
+  ...basicView,
   ...multistageView,
   ...tableView,
   {

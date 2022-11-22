@@ -1,49 +1,48 @@
+/* eslint-disable import/newline-after-import */
 /* eslint-disable react/prop-types */
-import React, { useReducer, useState, useMemo } from 'react';
-import { Button, Card } from 'antd';
+import React, { useState } from 'react';
+import {
+  Button,
+  Form,
+  Radio, Card, RadioChangeEvent,
+} from 'antd';
 
-const initial = { n: 0 };
-interface State {
-  num?:Number,
-  type?:String
-}
-const reducer = (state:any, action:State) => {
-  if (action.type === 'add') {
-    return { n: state.n + action.num };
-  }
-  throw new Error('unknown type');
-};
-
-function Home():any {
-  const [state, dispatch] = useReducer(reducer, initial);
-  const [m, setM] = useState(0);
-  const { n } = state;
-  const onClick = () => {
-    dispatch({ type: 'add', num: 2 });
-    setM(m + 2);
+function Home(): any {
+  const optionsWithDisabled = [
+    { label: '屏蔽显示', value: '1' },
+    { label: '声音播报', value: '2' },
+  ];
+  const [value4, setValue4] = useState('1');
+  const onChange = ({ target: { value } }: RadioChangeEvent) => {
+    setValue4(value);
   };
-  const onClickChild = () => {
-    console.log('hello');
-  };
-  const onClickChild2 = useMemo(() => () => {
-    console.log(m);
-  }, [m]);
 
   return (
     <div>
-      <nav>home</nav>
-      <Button type="primary">{ `n: ${n}`}</Button>
-      <Button type="primary" onClick={onClick}>home</Button>
       <Card>
-        <Child data={m} onClick={onClickChild2}></Child>
+        <Form
+          labelCol={{ span: 2 }}
+          wrapperCol={{ span: 14 }}
+          layout="horizontal"
+        >
+          <Form.Item label="类型" valuePropName="checked">
+            <Radio.Group
+              options={optionsWithDisabled}
+              onChange={onChange}
+              value={value4}
+              buttonStyle="solid"
+              style={{ float: 'left', marginLeft: 20 }}
+            />
+          </Form.Item>
+        </Form>
       </Card>
     </div>
   );
 }
 
-const Child = React.memo((props:any) => (
+const Child = React.memo((props: any) => (
   <Card style={{ width: 300 }}>
-    <Button type="primary" onClick={props.onClick}>{ props.data }</Button>
+    <Button type="primary" onClick={props.onClick}>{props.data}</Button>
   </Card>
 ));
 

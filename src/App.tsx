@@ -2,8 +2,8 @@ import React, {
   useRef, useState, useEffect, useReducer,
 } from 'react';
 import { HashRouter as Routers } from 'react-router-dom';
-import 'antd/dist/antd.min.css';
-import './assets/scss/varable.scss';
+import 'antd/dist/reset.css';
+// import './assets/scss/varable.scss';
 import { Col, Layout, Row } from 'antd';
 import MenuLayer from './layer/index';
 import Router from './layer/router';
@@ -93,7 +93,7 @@ function App() {
               }
               <Content>
                 <Row>
-                  <Col xs={0} sm={0} md={7} lg={5} xl={4} style={{ display: isLogin ? 'none' : 'block' }}>
+                  <Col xs={0} sm={0} md={7} lg={5} xl={4}>
                     <ThemeContext.Provider value={themes.MenuLayer}>
                       <MenuLayer mode="inline" SelectKey={SelectedKeys} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
                     </ThemeContext.Provider>

@@ -13,7 +13,7 @@ const { SubMenu } = Menu;
 
 const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknown>): JSX.Element => {
   const navigate = useNavigate();
-  const [openKey, useOpenKey] = useState(['']);
+  const [openKey, setOpenKey] = useState(['']);
 
   useImperativeHandle(ref, () => ({
     refresFunc,
@@ -32,7 +32,7 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
     const arrKey = herf.split('/');
     if (arrKey.length > 2) {
       const open: any[] = openKeyFn(herf);
-      useOpenKey(open);
+      setOpenKey(open);
     }
   };
   // 设置 展开的 SubMenu 菜单项
