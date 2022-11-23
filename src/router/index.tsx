@@ -35,6 +35,18 @@ const ShortMessage = lazy(() => import('../view/basic/ShortMessage'));
 // 网络设置
 const DiAL = lazy(() => import('../view/newWork/DiAL'));
 const Lan = lazy(() => import('../view/newWork/Lan'));
+const Wan = lazy(() => import('../view/newWork/Wan'));
+const ShoreWifi = lazy(() => import('../view/newWork/ShoreWifi'));
+
+// 录像设置
+const AudioSettings = lazy(() => import('../view/video/AudioSettings'));
+const Mode = lazy(() => import('../view/video/Mode'));
+const Picture = lazy(() => import('../view/video/Picture'));
+const Image = lazy(() => import('../view/video/Image'));
+const RecorDosd = lazy(() => import('../view/video/RecorDosd'));
+const MainRecoed = lazy(() => import('../view/video/MainRecoed'));
+const SubRecoed = lazy(() => import('../view/video/SubRecoed'));
+const IPC = lazy(() => import('../view/video/IPC'));
 
 // 错误处理
 const ErrorView: RouterFace[] = [
@@ -140,6 +152,155 @@ const multistageView: RouterFace[] = [
   },
 ];
 
+// 平台策略
+const platformPolicyView: RouterFace[] = [
+  {
+    path: 'platformPolicy',
+    title: '平台策略',
+    exact: true,
+    icon: RedditOutlined,
+    childern: []
+  }
+]
+
+// 本地策略
+const localPolicyView: RouterFace[] = [
+  {
+    path: 'localPolicy',
+    title: '本地策略',
+    exact: true,
+    icon: RedditOutlined,
+    childern: []
+  }
+]
+
+// AI 测试
+const aiTestView: RouterFace[] = [
+  {
+    path: 'AITest',
+    title: 'AI 测试',
+    exact: true,
+    icon: RedditOutlined,
+    childern: []
+  }
+]
+
+// 设备维护
+const maintainView: RouterFace[] = [
+  {
+    path: 'maintain',
+    title: '设备维护',
+    exact: true,
+    icon: RedditOutlined,
+    childern: []
+  }
+]
+
+// 报警设置
+const alramView: RouterFace[] = [
+  {
+    path: 'alram',
+    title: '报警设置',
+    exact: true,
+    icon: RedditOutlined,
+    childern: []
+  }
+]
+
+// 外设设置
+const peripheralView: RouterFace[] = [
+  {
+    path: 'peripheral',
+    title: '外设设置',
+    exact: true,
+    icon: RedditOutlined,
+    childern: []
+  }
+]
+
+// 录像设置
+const videoView: RouterFace[] = [
+  {
+    path: 'video',
+    title: '录像设置',
+    exact: true,
+    icon: RedditOutlined,
+    childern: [
+      {
+        path: 'audio',
+        title: '音频设置',
+        exact: true,
+        icon: RedditOutlined,
+        component: AudioSettings,
+      },
+      {
+        path: 'Mode',
+        title: '模式设置',
+        exact: true,
+        icon: RedditOutlined,
+        component: Mode,
+      },
+      {
+        path: 'Picture',
+        title: '图像设置',
+        exact: true,
+        icon: RedditOutlined,
+        component: Picture,
+      },
+      {
+        path: 'Image',
+        title: '镜像设置',
+        exact: true,
+        icon: RedditOutlined,
+        component: Image,
+      },
+      {
+        path: 'RecorDosd',
+        title: '录像叠加',
+        exact: true,
+        icon: RedditOutlined,
+        component: RecorDosd,
+      },
+      {
+        path: 'MainRecoed',
+        title: '主码流设置',
+        exact: true,
+        icon: RedditOutlined,
+        component: MainRecoed,
+      },
+      {
+        path: 'SubRecoed',
+        title: '子码流设置',
+        exact: true,
+        icon: RedditOutlined,
+        component: SubRecoed,
+      },
+      {
+        path: 'IPC',
+        title: 'IPC',
+        exact: true,
+        icon: RedditOutlined,
+        component: IPC,
+      }
+      ,
+      {
+        path: 'storage',
+        title: '存储设置',
+        exact: true,
+        icon: RedditOutlined,
+        childern: []
+      },
+      {
+        path: 'videoDeployment',
+        title: '录像部署',
+        exact: true,
+        icon: RedditOutlined,
+        childern: []
+      }
+    ]
+  }
+]
+
 // 网络设置
 const newWorkView: RouterFace[] = [
   {
@@ -171,13 +332,27 @@ const newWorkView: RouterFace[] = [
         childern: [
           {
             path: 'Lan',
-            title: '拨号',
+            title: 'LAN',
             exact: true,
             icon: RedditOutlined,
             component: Lan,
+          },
+          {
+            path: 'Wan',
+            title: 'WAN',
+            exact: true,
+            icon: RedditOutlined,
+            component: Wan,
           }
         ]
       },
+      {
+        path: 'ShoreWifi',
+        title: 'WIFI 共享',
+        exact: true,
+        icon: RedditOutlined,
+        component: ShoreWifi,
+      }
     ]
   }
 ]
@@ -350,15 +525,24 @@ const RouterHSAE: RouterFace[] = [
     component: Home,
     icon: RedditOutlined,
   },
-  // {
-  //   path: 'markdown',
-  //   title: 'markdown 文档',
-  //   exact: true,
-  //   icon: RedditOutlined,
-  //   component: MarkDown,
-  // },
+  {
+    path: 'markdown',
+    title: 'markdown 文档',
+    exact: true,
+    icon: RedditOutlined,
+    component: MarkDown,
+  },
   ...basicView,
   ...newWorkView,
+  ...videoView,
+  ...peripheralView,
+  ...alramView,
+  ...maintainView,
+  ...aiTestView,
+  ...localPolicyView,
+  ...platformPolicyView,
+
+
   ...multistageView,
   ...tableView,
   {

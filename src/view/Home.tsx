@@ -2,12 +2,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
-  Button,
   Form,
   Radio, Card, RadioChangeEvent,
 } from 'antd';
 
-function Home(): any {
+const Home:React.FC = () => {
   const optionsWithDisabled = [
     { label: '屏蔽显示', value: '1' },
     { label: '声音播报', value: '2' },
@@ -40,10 +39,10 @@ function Home(): any {
   );
 }
 
-const Child = React.memo((props: any) => (
-  <Card style={{ width: 300 }}>
-    <Button type="primary" onClick={props.onClick}>{props.data}</Button>
-  </Card>
-));
+// const Child = React.memo((props: any) => (
+//   <Card style={{ width: 300 }}>
+//     <Button type="primary" onClick={props.onClick}>{props.data}</Button>
+//   </Card>
+// ));
 
 export default Home;
