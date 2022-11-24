@@ -6,7 +6,10 @@ import {
   Radio, Card, RadioChangeEvent,
 } from 'antd';
 
-const Home:React.FC = () => {
+
+
+
+const Home: React.FC = () => {
   const optionsWithDisabled = [
     { label: '屏蔽显示', value: '1' },
     { label: '声音播报', value: '2' },
@@ -15,9 +18,11 @@ const Home:React.FC = () => {
   const onChange = ({ target: { value } }: RadioChangeEvent) => {
     setValue4(value);
   };
+  
 
   return (
     <div>
+      <div id="vueDom" style={{ height: '50vh', background: 'red' }}></div>
       <Card>
         <Form
           labelCol={{ span: 2 }}
@@ -35,6 +40,7 @@ const Home:React.FC = () => {
           </Form.Item>
         </Form>
       </Card>
+
     </div>
   );
 }

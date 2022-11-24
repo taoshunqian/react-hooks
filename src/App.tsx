@@ -7,6 +7,17 @@ import 'antd/dist/reset.css';
 import { Col, Layout, Row } from 'antd';
 import MenuLayer from './layer/index';
 import Router from './layer/router';
+import { registerMicroApps, start } from 'qiankun';
+
+const app = [{
+  name: "qkApp",
+  entry: "//localhost:8081",
+  container: '#vueDom',//微应用挂载的容器节点
+  activeRule: '/vue',//微应用的激活规则
+  props: { token: 'gaiery-token-xxxx' } //主应用需要传递给微应用的数据
+}];
+registerMicroApps(app);
+
 
 const { Content } = Layout;
 
@@ -50,6 +61,12 @@ function App() {
       setLogin(true);
     }
   });
+  useEffect(() => {
+    start({
+      prefetch: false, //取消预加载
+      sandbox: { experimentalStyleIsolation: true }, //沙盒模式
+    });
+  }, []);
 
   // 开放给子组件使用此函数
   const getChildData = (value: React.SetStateAction<string>): void => {
@@ -71,6 +88,7 @@ function App() {
     <Layout>
       <ApiContext.Provider value={api}>
         <div className="App">
+        
           {/* 左侧导航栏 */}
           <Content className="site-layout">
             <Routers>
@@ -108,8 +126,6 @@ function App() {
                     </Content>
                   </article>
               }
-
-
             </Routers>
           </Content>
 
