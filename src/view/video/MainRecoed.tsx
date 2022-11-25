@@ -192,7 +192,7 @@ const MainRecoedView: React.FC = () => {
         },
         {
             key: '1',
-            channel: "AV 1",
+            channel: "AV 2",
             audio: "1",
             resolvingPower: "1",
             FrameRate: "1",

@@ -22,7 +22,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <div id="vueDom" style={{ height: '50vh', background: 'red' }}></div>
+      {/* <div id="vueDom" style={{ height: '50vh', background: 'red' }}></div> */}
       <Card>
         <Form
           labelCol={{ span: 2 }}

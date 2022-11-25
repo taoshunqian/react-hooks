@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Form, Input, Col, Row, Card } from 'antd';
 
-const Login:React.FC = () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-    navigate('/home');
-  };
+  const onFinish = useCallback(
+    () => {
+      navigate('/home');
+    },
+    [],
+  );
+
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);

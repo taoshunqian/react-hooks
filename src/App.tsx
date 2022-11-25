@@ -1,25 +1,18 @@
 import React, {
   useRef, useState, useEffect, useReducer,
 } from 'react';
-import { HashRouter as Routers } from 'react-router-dom';
+import { HashRouter as Routers, useNavigate } from 'react-router-dom';
 import 'antd/dist/reset.css';
-// import './assets/scss/varable.scss';
+import {
+  MenuUnfoldOutlined, MenuFoldOutlined
+} from '@ant-design/icons';
 import { Col, Layout, Row } from 'antd';
 import MenuLayer from './layer/index';
 import Router from './layer/router';
-import { registerMicroApps, start } from 'qiankun';
-
-const app = [{
-  name: "qkApp",
-  entry: "//localhost:8081",
-  container: '#vueDom',//微应用挂载的容器节点
-  activeRule: '/vue',//微应用的激活规则
-  props: { token: 'gaiery-token-xxxx' } //主应用需要传递给微应用的数据
-}];
-registerMicroApps(app);
+import { Scrollbars } from 'react-custom-scrollbars';
 
 
-const { Content } = Layout;
+const { Content, Header } = Layout;
 
 const themes = {
   MenuLayer: {
@@ -45,28 +38,40 @@ function reducer(state: any, action: any) {
 const ThemeContext = React.createContext(themes.MenuLayer);
 const ApiContext = React.createContext({});
 
+
 function App() {
   const childRef = useRef('App');
   const [SelectedKeys, setSelectedKeys] = useState('home');
   const [isLogin, setLogin] = useState(false);
   const [state, dispatch] = useReducer(reducer, store);
+  const [collapsed, setCollapsed] = useState(false);
+  // const navigate = useNavigate();
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const api = { state, dispatch };
   // eslint-disable-next-line prefer-destructuring
-  const hash = window.location.hash;
+  const hash = window.location.hash.split("#");
+  const pathName: String[] = ['/login', '/error/403', '/error/404', '/error/500'];
+
+  window.addEventListener("popstate", function (e) {
+    if (pathName.includes(hash[1])) {
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
+  }, false);
 
   useEffect(() => {
-    FooterTest();
-    if (hash.indexOf('login') !== -1) {
+    if (!isLogin) {
+      FooterTest();
+    } else {
+      // navigate('/login');
+    }
+    if (pathName.includes(hash[1])) {
       setLogin(true);
+    } else {
+      setLogin(false);
     }
   });
-  useEffect(() => {
-    start({
-      prefetch: false, //取消预加载
-      sandbox: { experimentalStyleIsolation: true }, //沙盒模式
-    });
-  }, []);
 
   // 开放给子组件使用此函数
   const getChildData = (value: React.SetStateAction<string>): void => {
@@ -84,51 +89,62 @@ function App() {
     ref.refresFunc();
   };
 
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  }
+
   return (
     <Layout>
       <ApiContext.Provider value={api}>
         <div className="App">
-        
-          {/* 左侧导航栏 */}
-          <Content className="site-layout">
-            <Routers>
-
-              <Row>
-                <Col xs={24} sm={24} md={0} lg={0} xl={0}>
-                  <Content style={{
-                    width: '100%', height: '0rem',
-                  }}
-                  >
-                    <ThemeContext.Provider value={themes.MenuLayer}>
-                      <MenuLayer mode="horizontal" SelectKey={SelectedKeys} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
-                    </ThemeContext.Provider>
-                  </Content>
-                </Col>
-              </Row>
-              {/* 顶部导航栏 */}
-              {
-                isLogin ?
-                  <article>
-                    <Router />
-                  </article>
-                  : <article>
-                    <Content>
-                      <Row>
-                        <Col xs={0} sm={0} md={7} lg={5} xl={4}>
-                          <ThemeContext.Provider value={themes.MenuLayer}>
-                            <MenuLayer mode="inline" SelectKey={SelectedKeys} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
-                          </ThemeContext.Provider>
-                        </Col>
-                        <Col xs={24} sm={24} md={17} lg={19} xl={20} style={{ marginTop: '0rem' }}>
-                          <Router />
-                        </Col>
-                      </Row>
+          <Scrollbars style={{ height: '100vh', overflow: 'hidden' }}>
+            {/* 左侧导航栏 */}
+            <Content className="site-layout">
+              <Routers>
+                {/* <Row>
+                  <Col xs={24} sm={24} md={0} lg={0} xl={0}>
+                    <Content style={{
+                      width: '100%', height: '46px',
+                    }}
+                    >
+                      <ThemeContext.Provider value={themes.MenuLayer}>
+                        <MenuLayer mode="horizontal" SelectKey={SelectedKeys} collapsed={collapsed} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
+                      </ThemeContext.Provider>
                     </Content>
-                  </article>
-              }
-            </Routers>
-          </Content>
+                  </Col>
+                </Row> */}
 
+                {/* 顶部导航栏 */}
+                {
+                  isLogin ?
+                    <article>
+                      <Router />
+                    </article>
+                    : <article>
+                      <Content>
+                        <Row>
+                          <Col xs={0} sm={0} md={7} lg={5} xl={4}>
+                            <ThemeContext.Provider value={themes.MenuLayer}>
+                              <MenuLayer mode="inline" SelectKey={SelectedKeys} collapsed={collapsed} ThemeContext={ThemeContext} getChildData={getChildData} ref={childRef} />
+                            </ThemeContext.Provider>
+                          </Col>
+                          <Col xs={24} sm={24} md={17} lg={19} xl={20} style={{ marginTop: '0rem' }}>
+                            <Scrollbars style={{ height: '100vh', overflow: 'hidden' }}>
+                              {/* <Header style={{ background: '#FFFFFF' }}>
+                                <div onClick={toggleCollapsed}>
+                                  {collapsed ? <MenuUnfoldOutlined style={{ fontSize: 20 }} /> : <MenuFoldOutlined style={{ fontSize: 20 }} />}
+                                </div>
+                              </Header> */}
+                              <Router />
+                            </Scrollbars>
+                          </Col>
+                        </Row>
+                      </Content>
+                    </article>
+                }
+              </Routers>
+            </Content>
+          </Scrollbars>
         </div>
       </ApiContext.Provider>
     </Layout>

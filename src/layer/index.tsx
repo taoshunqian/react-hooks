@@ -4,7 +4,7 @@
 /* eslint-disable max-len */
 import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-
+import { Scrollbars } from 'react-custom-scrollbars';
 import { AppstoreOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { RouterHSAE } from '../router';
@@ -13,7 +13,7 @@ const { SubMenu } = Menu;
 
 const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknown>): JSX.Element => {
   const navigate = useNavigate();
-  const [openKey, setOpenKey] = useState(['']);
+  const [openKey, setOpenKey] = useState<any[]>(['']);
 
   useImperativeHandle(ref, () => ({
     refresFunc,
@@ -31,8 +31,9 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
     navigate(herf, { replace: true });
     const arrKey = herf.split('/');
     if (arrKey.length > 2) {
-      const open: any[] = openKeyFn(herf);
-      setOpenKey(open);
+      const open: String[] = openKeyFn(herf);
+      open.concat(openKey);
+      setOpenKey(Array.from(new Set(open)));
     }
   };
   // 设置 展开的 SubMenu 菜单项
@@ -52,7 +53,7 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
   // 点击获取的菜单项key
   const handleClick = (e: { key: string; }): void => {
     props.getChildData(e.key);
-    const rou:String = e.key;
+    const rou: String = e.key;
     if (rou.indexOf('login') !== -1) {
       // window.open(`${window.location.origin}/#/${e.key}`, '_self');
       window.location.replace(`${window.location.origin}/#/${e.key}`);
@@ -63,23 +64,27 @@ const MenuLayer = forwardRef((props: Props | any, ref: React.ForwardedRef<unknow
 
   return (
     <div className={props.mode === 'horizontal' ? '' : 'Menu'}>
-      <Menu
-        onClick={handleClick}
-        mode={props.mode}
-        key={Math.random()}
-        defaultSelectedKeys={[props.SelectKey]}
-        defaultOpenKeys={openKey}
-        selectedKeys={[props.SelectKey]}
-        subMenuOpenDelay={2000}
-      >
-        {
-          RouterHSAE.map((router) => (
-            router?.childern
-              ? MenuLayChild({ router })
-              : MenuLayerChild({ router })
-          ))
-        }
-      </Menu>
+      <Scrollbars style={{ height: '100vh', overflow: 'hidden' }}>
+        <Menu
+          onClick={handleClick}
+          mode={props.mode}
+          key={Math.random()}
+          // defaultSelectedKeys={[props.SelectKey]}
+          defaultOpenKeys={openKey}
+          selectedKeys={[props.SelectKey]}
+          inlineCollapsed={props.collapsed}
+          subMenuOpenDelay={2000}
+          // theme={'dark'}
+        >
+          {
+            RouterHSAE.map((router) => (
+              router?.childern
+                ? MenuLayChild({ router })
+                : MenuLayerChild({ router })
+            ))
+          }
+        </Menu>
+      </Scrollbars>
     </div>
   );
 });

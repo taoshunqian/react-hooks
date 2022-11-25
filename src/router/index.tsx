@@ -525,13 +525,7 @@ const RouterHSAE: RouterFace[] = [
     component: Home,
     icon: RedditOutlined,
   },
-  {
-    path: 'markdown',
-    title: 'markdown 文档',
-    exact: true,
-    icon: RedditOutlined,
-    component: MarkDown,
-  },
+  
   ...basicView,
   ...newWorkView,
   ...videoView,
@@ -560,6 +554,13 @@ const RouterHSAE: RouterFace[] = [
     exact: true,
     icon: RedditOutlined,
     component: About,
+  },
+  {
+    path: 'markdown',
+    title: 'markdown 文档',
+    exact: true,
+    icon: RedditOutlined,
+    component: MarkDown,
   },
 ];
 

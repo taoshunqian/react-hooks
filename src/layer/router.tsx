@@ -3,38 +3,50 @@
 /* eslint-disable react/react-in-jsx-scope */
 
 import { Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense,useCallback } from 'react';
 import Home from '../view/Home';
 import { RouterHSAE } from '../router';
 import Error404 from '../view/error/404';
 
+
+
 function Router(): JSX.Element {
+
+  const callback = useCallback(
+    () => {
+      return RouterHSAE.map((router) => (
+        RouterChildren(router)
+      ))
+    },
+    [],
+  )
+
   return (
-    <div style={{ width: '100%', height: '100vh' }}>
-      <div className="force-overflow">
-        <Suspense>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home></Home>
+    
+      <div>
+        <div className="force-overflow">
+          <Suspense>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Home></Home>
+                }
+              >
+
+              </Route>
+              {
+                callback()
               }
-            >
-            </Route>
-            {
-              RouterHSAE.map((router) => (
-                RouterChildren(router)
-              ))
-            }
-            <Route
-              path="*"
-              element={<Error404 />}
-            >
-            </Route>
-          </Routes>
-        </Suspense>
+              <Route
+                path="*"
+                element={<Error404 />}
+              >
+              </Route>
+            </Routes>
+          </Suspense>
+        </div>
       </div>
-    </div>
   );
 }
 
